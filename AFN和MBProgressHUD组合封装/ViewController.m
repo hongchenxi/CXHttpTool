@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-
+#import "CXHttpTool.h"
 @interface ViewController ()
 
 @end
@@ -17,6 +17,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    
+}
+- (IBAction)sendAction {
+    
+    if(![CXHttpTool hasNetworkReachability])return;
+    
+    [CXHttpTool get:@"http://a.apix.cn/datatiny/phoneinfos/phoneinfo.php" params:@{@"deviceinfo":@"100c"} graceTime:NetWorkRequestGraceTimeTypeAlways success:^(id responseObj) {
+        
+        NSLog(@"responseObj:%@",responseObj);
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"error:%@",error);
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
